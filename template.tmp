@@ -1,0 +1,12 @@
+from goto import with_goto
+from collections import defaultdict
+
+
+@with_goto
+def main():
+    Z = defaultdict(int)
+    Y = 0
+    ### code ###
+
+
+print(main())
