@@ -21,7 +21,7 @@ Which `[A]` is label.
 ## Other tips
 
 - All variables values are members of Natural numbers.
-
+- Tested on python 3.6.7 in Kubuntu 18.10
 
 ## Requirements
 
