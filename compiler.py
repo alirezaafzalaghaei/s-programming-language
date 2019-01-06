@@ -90,8 +90,8 @@ program = '\n    '.join(instructions)
 
 with open('template.tmp', 'r') as tmp:
     Program = tmp.read().replace('### code ###', program)
-    with open('result.py', 'w') as result:
-        # result.write(Program)
-        # exec(open("result.py").read())
-        pass
+    # with open('result.py', 'w') as result:
+    #     result.write(Program)
+    #     exec(open("result.py").read())
+    #     pass
     exec(Program)
