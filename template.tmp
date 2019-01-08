@@ -1,12 +1,42 @@
 from goto import with_goto
 from collections import defaultdict
 
+X, Y, Z = [None] * 3
+
+
+def init_snapshot():
+    init = list()
+    init.append('| i')
+    for i in range(len(X)):
+        init.append("X%d" % (i + 1))
+    for i in range(len(Z)):
+        init.append("Z%d" % (i + 1))
+    init.append(' Y')
+    init = ' | '.join(init)
+    print(init + ' |')
+    print('|', '-' * (len(init)), '|', sep='')
+
+
+def snapshot(i):
+    global X, Y, Z
+    init = list()
+
+    init.append('|{:^2}'.format(i))
+    for i in range(len(X)):
+        init.append('{:^2}'.format(X[i]))
+    for i in range(len(Z)):
+        init.append('{:^2}'.format(Z[i]))
+    init.append('{:^2}'.format(Y))
+    init = ' | '.join(init)
+
+    print(init + ' |')
+
 
 @with_goto
 def main():
-    Z = defaultdict(int)
+    global X, Y, Z
     Y = 0
     ### code ###
 
 
-print(main())
+print("\nProgram output is : ", main())
