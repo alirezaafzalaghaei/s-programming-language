@@ -1,6 +1,6 @@
 import re
 import sys
-import os
+import coding
 
 _, file_name, *X = sys.argv
 X = list(map(int, X))
@@ -9,60 +9,6 @@ X = list(map(int, X))
 SNAPSHOT = input('Should i show snapshot? (y/n) ').lower() in ('y', 'yes')
 
 
-def get_line_type(i, line):
-    """
-    This function gets a line of program and return all info about line.
-
-    :param i: line number
-    :param line: one line of program
-    :returns: 3 element tuple (type,label,variables):
-               type: 0,1,2 or 3
-               label : label of line if exists otherwise empty string
-               variables: just one variable in case of addition and subtraction and (variable, label) in case of IF satement.
-    :raises SyntaxError: if line doesn't match language
-    """
-    if line.islower():
-        raise SyntaxError('Syntax Error in line %d. You should use UPPERCASE letters' % i)
-
-    if re.match(r'^(\[\w\d*\])?\s*\w\d*\s*<-\s*\w\d*$', line):  # matches: [L] v <- v
-        _vars = re.findall(r'(\w\d*)', line)  # finds variable names
-        if len(_vars) == 2: _vars.insert(0, '')  # add empty label
-        if _vars[1] != _vars[2]:
-            raise SyntaxError('Syntax Error in line %d, Cant use v <- w' % i)
-        _label = _vars[0]
-        _var = "%s[%d]" % (_vars[1][0], int(_vars[1][1:]) - 1) if _vars[1] != 'Y' else _vars[
-            1]  # convert X1 to python list syntax X[0]
-        return 0, _label, _var
-
-    elif re.match(r'^(\[\w\d*\])?\s*\w\d*\s*<-\s*\w\d*\s*\+\s*1$', line):  # matches [L] v <- v + 1
-        _vars = re.findall(r'(\w\d*)', line)
-        if len(_vars) == 3: _vars.insert(0, '')
-        if _vars[1] != _vars[2]:
-            raise SyntaxError('Syntax Error in line %d, Cant use v <- w + 1' % i)
-        _label = _vars[0]
-        _var = "%s[%d]" % (_vars[1][0], int(_vars[1][1:]) - 1) if _vars[1] != 'Y' else _vars[1]
-        return 1, _label, _var
-
-    elif re.match(r'^(\[\w\d*\])?\s*\w\d*\s*<-\s*\w\d*\s*-\s*1$', line):  # matches [L] v <- v - 1
-        _vars = re.findall(r'(\w\d*)', line)
-        if len(_vars) == 3: _vars.insert(0, '')
-        if _vars[1] != _vars[2]:
-            raise SyntaxError('Syntax Error in line %d, Cant use v <- w - 1' % i)
-        _label = _vars[0]
-        _var = "%s[%d]" % (_vars[1][0], int(_vars[1][1:]) - 1) if _vars[1] != 'Y' else _vars[1]
-        return 2, _label, _var
-
-    elif re.match('^(\[\w\d*\])?\s*IF\s*\w\d*\s*!=\s*0\s*GOTO\s*\w\d*$', line):  # matches [L] IF V != 0 GOTO L2
-        _vars = re.findall(r'(\w\d*)', line)
-        if _vars[0] == 'I':  # add empty label
-            _vars.insert(0, '')
-
-        _label = _vars[0]
-        _var = "%s[%d]" % (_vars[3][0], int(_vars[3][1:]) - 1) if _vars[3] != 'Y' else _vars[3]
-
-        return 3, _label, _var, _vars[-1]
-    else:  # Unknown line syntax
-        raise SyntaxError('Syntax Error in line %d' % i)
 
 
 def get_instruction(i, line_info, snapshot):
@@ -101,13 +47,13 @@ def get_instruction(i, line_info, snapshot):
 
 
 with open(file_name) as source:
-    MAX_Z = max(map(int, re.findall(r"Z(\d+)", source.read())))
+    MAX_Z = max(list(map(int, re.findall(r"Z(\d+)", source.read()))) + [0])
     source.seek(0)
     instructions = []
     for i, line in enumerate(source, 1):
         if len(line) <= 1:
             continue
-        line_info = get_line_type(i, line)
+        line_info = coding.Program.line_preprocess(i, line)
         instruction = get_instruction(i, line_info,SNAPSHOT)
         instructions.extend(instruction)
 
@@ -117,7 +63,7 @@ if SNAPSHOT:
     instructions.insert(2, 'init_snapshot()')
     instructions.insert(3, 'snapshot(0)')
 
-instructions.append('label .E')  # define Exit label
+instructions.append('label .E1')  # define Exit label
 instructions.append('return Y')  # to get result of program
 program = '\n    '.join(instructions)
 

@@ -38,5 +38,9 @@ def main():
     Y = 0
     ### code ###
 
-
-print("\nProgram output is : ", main())
+try:
+    print("\nProgram output is : ", main())
+except IndexError:
+    print("Not enough inputs")
+except:
+    print("Unknown error! please open an issue in github project page")
