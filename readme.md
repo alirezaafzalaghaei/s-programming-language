@@ -50,7 +50,7 @@ Which `[A]` is label.
  
       python3 coding.py
       
-- Now follow instructions and get you desired output.
+- Now follow instructions and get your desired output.
 
       1) Decode 
       2) Encode
