@@ -69,7 +69,7 @@ Which `[A]` is label.
  
  - Now you can use `compiler.py` to compile your program.
 
-
+### Compile
 Here i wrote another program which gets two input and returns sum of them.
  
  - Example2.s:
