@@ -169,7 +169,7 @@ class Variable:
         """
 
         :param var: variable: Y,X1,Z1,X2,Z2,...
-        :return:  variable code: 0,1,2,...
+        :return:  variable code: 1,2,3,...
         """
 
         if var == "Y":
@@ -284,6 +284,6 @@ if __name__ == '__main__':
             open(path, 'w').write('\n'.join(decode(program_code)))
     elif n == '2':
         path = input("Enter program file path: ")
-        print(encode(path))
+        print(encode(path),'- 1')
 
 
