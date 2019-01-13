@@ -43,6 +43,6 @@ try:
 except IndexError:
     print("Not enough inputs")
 except KeyboardInterrupt:
-    print("Executation cancelled by user")
+    print("Execution cancelled by user")
 except:
     print("Unknown error! please open an issue in github project page")
