@@ -57,11 +57,12 @@ with open(file_name) as source:
         instruction = get_instruction(i, line_info,SNAPSHOT)
         instructions.extend(instruction)
 
-instructions.insert(0, 'X = %s' % (str(X)))  # define inputs
-instructions.insert(1, 'Z = %s' % (str([0] * MAX_Z)))
+instructions.insert(0, 'show_snapshot = %s' % (str(SNAPSHOT)))  # set snapshot 
+instructions.insert(1, 'X = %s' % (str(X)))  # define inputs
+instructions.insert(2, 'Z = %s' % (str([0] * MAX_Z)))
 if SNAPSHOT:
-    instructions.insert(2, 'init_snapshot()')
-    instructions.insert(3, 'snapshot(0)')
+    instructions.insert(3, 'init_snapshot()')
+    instructions.insert(4, 'snapshot(0)')
 
 instructions.append('label .E1')  # define Exit label
 instructions.append('return Y')  # to get result of program
@@ -70,6 +71,6 @@ program = '\n    '.join(instructions)
 with open('template.tmp', 'r') as tmp:
     Program = tmp.read().replace('### code ###', program)  # replace generated code in template file and execute result
     # # if you want to save generated file 
-    # with open('result.py', 'w') as result:
-    #     result.write(Program)
+    with open('result.py', 'w') as result:
+        result.write(Program)
     exec(Program)

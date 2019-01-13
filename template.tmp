@@ -1,8 +1,14 @@
 from goto import with_goto
 from collections import defaultdict
 
-X, Y, Z = [None] * 3
+X, Y, Z, show_snapshot = [None] * 4
 
+def delete_last_lines(n):
+    CURSOR_UP_ONE = '\x1b[1A'
+    ERASE_LINE = '\x1b[2K'
+    for _ in range(n):
+        sys.stdout.write(CURSOR_UP_ONE)
+        sys.stdout.write(ERASE_LINE)
 
 def init_snapshot():
     init = list()
@@ -34,14 +40,20 @@ def snapshot(i):
 
 @with_goto
 def main():
-    global X, Y, Z
+    global X, Y, Z, show_snapshot
     Y = 0
     ### code ###
 
 try:
     print("\nProgram output is : ", main())
 except IndexError:
-    print("Not enough inputs")
+    try:
+        if show_snapshot:
+            delete_last_lines(4)
+    except:
+        pass
+    finally:
+        print("Not enough inputs")
 except KeyboardInterrupt:
     print("Executation cancelled by user")
 except:
