@@ -1,4 +1,5 @@
-# S Programming Language
+
+# S Programming Language Compiler
 
 
 There is a Programming language that provided in the second section of `Computability,Complexity, and Languages Fundamentals of Theoretical Computer Science` book by `Martin D. Davis, Ron Sigal and Elaine J. Weyuker`
@@ -26,9 +27,12 @@ Which `[A]` is label.
 ## Requirements
 
  - Python 3
- - `goto-statement` module. Install it via `pip install goto-statement`
- - `sympy` module. Install it via `pip install sympy` 
+ - `goto-statement` module in order to add goto support
+ - `sympy` module for prime factorization 
  
+ To install dependencies just run this:
+    
+    pip install -r requirements.txt
  
 ## Usage
  
@@ -74,33 +78,33 @@ Here i wrote another program which gets two input and returns sum of them.
  
  - Example2.s:
     
-        [A1] IF X1 != 0 GOTO B1
-        Z1 <- Z1 + 1
-        IF Z1 != 0 GOTO C1
-        [B1] X1 <- X1 - 1
-        Y <- Y + 1
-        Z1 <- Z1 + 1
-        IF Z1 != 0 GOTO A1
+       [A1] IF X1 != 0 GOTO B1
+       Z1 <- Z1 + 1
+       IF Z1 != 0 GOTO C1
+       [B1] X1 <- X1 - 1
+       Y <- Y + 1
+       Z1 <- Z1 + 1
+       IF Z1 != 0 GOTO A1
         
-        [C1] IF X2 != 0 GOTO D1
-        Z2 <- Z2 + 1
-        IF Z2 != 0 GOTO A2
-        [D1] X2 <- X2 - 1
-        Z3 <- Z3 + 1
-        Z2 <- Z2 + 1
-        IF Z2 != 0 GOTO C1
-        
-        [A2] IF Z3 != 0 GOTO B2
-        Z4 <- Z4 + 1
-        IF Z4 != 0 GOTO E1
-        [B2] Z3 <- Z3 - 1
-        Y <- Y + 1
-        Z5 <- Z5 + 1
-        IF Z5 != 0 GOTO A2
+       [C1] IF X2 != 0 GOTO D1
+       Z2 <- Z2 + 1
+       IF Z2 != 0 GOTO A2
+       [D1] X2 <- X2 - 1
+       Z3 <- Z3 + 1
+       Z2 <- Z2 + 1
+       IF Z2 != 0 GOTO C1
+       
+       [A2] IF Z3 != 0 GOTO B2
+       Z4 <- Z4 + 1
+       IF Z4 != 0 GOTO E1
+       [B2] Z3 <- Z3 - 1
+       Y <- Y + 1
+       Z5 <- Z5 + 1
+       IF Z5 != 0 GOTO A2
         
  - Command:
      
-       python3 compiler.py Example2.s 7 8
+       python compiler.py Example2.s 7 8
   
  - Output:
  
@@ -109,7 +113,7 @@ Here i wrote another program which gets two input and returns sum of them.
     
  - Command:
      
-       python3 compiler.py Example2.s 2 1
+       python compiler.py Example2.s 2 1
   
  - Output:
  
