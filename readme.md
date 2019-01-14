@@ -6,9 +6,9 @@ There is a Programming language that provided in the second section of `Computab
 
 This programming language has 3 statements:
 
-    [A] X1 <- X1 + 1 # addition
+    [A1] X1 <- X1 + 1 # addition
     X1 <- X1 - 1 # subtraction 
-    IF X1 != 0 GOTO A # jump
+    IF X1 != 0 GOTO A1 # jump
 
 Which `[A]` is label.
 
