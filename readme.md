@@ -17,7 +17,7 @@ Which `[A]` is label.
 - Inputs are X1, X2, ...
 - Temporary variables are Z1, Z2, ... which all of them initialized to `0`.
 - Program result will save in variable `Y` which this also initialized to `0`.
-- Label names include A1, B1, C1, D1, E1, A2, B2, ... . Special label `E` refers to the end of program.
+- Label names include A1, B1, C1, D1, E1, A2, B2, ... . Special label `E1` refers to the end of program.
 
 ## Other tips
 
